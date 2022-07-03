@@ -1,0 +1,45 @@
+<div class="container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+    <div class="panel panel-default" >
+        <div ngClass="form-group container">
+            <div class="form-group">
+                <div>
+                    <input class="form-group" type="text" placeholder="Nombre" [(ngModel)]="name" (blur)="isValidName()">
+                    <div *ngIf="invalidName" ngClass="text-danger"> El nombre es obligatorio</div>
+                </div><br>
+            </div>
+            <div class="col-md-1 col-md-offset-2">
+                <div>
+                    <input class="form-group" type="text" placeholder="Apellidos" [(ngModel)]="surName"
+                        (blur)="isValidSurName()">
+                    <div *ngIf="invalidSurName" ngClass="text-danger"> el apellido es obligatorio</div>
+                </div>
+            </div><br>
+            <div>
+                <div class="datepicker-group">
+                    <input matInput [matDatepicker]="picker" placeholder="Fecha Nacimiento" [(ngModel)]="birthday" style="display: inline;" readonly
+                        (ngModelChange)="isValidBirthday()">       
+                    <mat-hint>DD/MM/YYYY</mat-hint>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+                <div *ngIf="invalidBirthday" class="text-danger"> la fecha es obligatoria</div>
+            </div><br>
+            <div>
+                <input class="form" type="email" placeholder="email" [(ngModel)]="email"
+                    (blur)="emailValidations()">
+                <div *ngIf="invalidEmail" ngClass="text-danger"> el correo electronico no es valido</div>
+            </div><br>
+            <div>
+                <form [formGroup]="aFormGroup">
+                    <ngx-recaptcha2 #captchaElem
+                      [siteKey]="siteKey"
+                      formControlName="recaptcha">
+                    </ngx-recaptcha2>
+                  </form>
+            </div><br>
+            <div>
+                <button class="btn btn-primary" (click)="isAllValid()">Registrarse</button>
+            </div>
+        </div>
+    </div>
+</div>
